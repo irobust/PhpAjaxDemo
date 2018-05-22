@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		function abc(){
+			console.log('abc');
+		}
+		
+		var successFn = function(result){
+			if(result.success){
+				$('.alert-success').fadeIn('slow');
+			}else{
+				$('.alert-danger').fadeIn('slow');
+			}
+		}
+
+		var doSend = function(){
+			// firstname=xxx&lastname=yyyy
+			var data = $('#frm').serialize();
+			// $.post('ajax/register.php', data, successFn);
+
+			// $.ajax({
+			// 	'method': 'post',
+			// 	'url': 'ajax/register.php',
+			// 	'data': data,
+			// 	'success': successFn
+			// });
+
+			// dataservice.js
+			var promise = $.post('ajax/register.php', data);
+
+			// caller
+			promise.then(successFn);
+		}
+
+		$(document).ready(function(){
+			$('.alert').hide();
+			$('#btnSend').click(doSend);
+		});
+	</script>
+</head>
+<body>
+	<div class="alert alert-success">Insert Successful!</div>
+	<div class="alert alert-danger">Can't register now!</div>
+	<form id="frm">
+		<div>
+			<label for="">Firstname:</label>
+			<input type="text" name="firstname">
+		</div>
+		<div>
+			<label for="">Lastname:</label>
+			<input type="text" name="lastname">
+		</div>
+		<button type="button" id="btnSend">Send</button>
+	</form>
+</body>
+</html>

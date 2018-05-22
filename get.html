@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$.post('ajax/post_method.php', 
+				  { 'product-line': 'Motor' }, function(data){
+				  	for(product of data){
+					  	$('#template .code').text(product.productCode);
+					  	$('#template .name').text(product.productName);
+					  	$('#template').clone(true).removeAttr('id')
+					  				//.data('id', product.productCode)
+					  				  .attr('data-id', product.productCode)
+					  				  .show().appendTo('#output tbody');
+					}
+				  }, 'json');
+
+			$('.btnDelete').click(function(){
+				var id = $(this).closest('tr').data('id');
+				var that = this;
+
+				$.post('ajax/delete.php', { 'id': id }).then(function(result){
+					if(result.success){
+						$(that).closest('tr').fadeOut('slow');
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<table id="output">
+		<thead>
+			<th>Product code</th>
+			<th>Prodcut Name</th>
+		</thead>
+		<tbody>
+			<!-- Data from server -->
+			<tr id="template" style="display: none;">
+				<td class="code"></td>
+				<td class="name"></td>
+				<td>
+					<button class="btnDelete">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

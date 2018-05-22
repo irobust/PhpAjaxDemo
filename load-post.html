@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#btnSubmit').click(function(){
+				$('#output').load('ajax/load_post.php h2', {
+					'name': 'John Doe'
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<button id="btnSubmit">Submit Data</button>
+	<div id="output"></div>
+</body>
+</html>

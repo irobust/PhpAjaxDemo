@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script>
+		var loadContent = function(){
+			//$('.status').text('Loading.........');
+
+
+			$('#output').load('http://localhost/PHPAjaxDemo/ajax/load_get.php', function(data){
+				console.log(data.toUpperCase());
+				$('.status').empty();
+			});
+
+			$('<img/>').attr('src', 'images/ajax-loader.gif')
+					   .attr('width', 20)
+					   .appendTo('.status');
+		}
+
+		$(document).ready(function(){
+			$('#btnLoader').click(loadContent);
+		});
+	</script>
+</head>
+<body>
+	<button id="btnLoader">Load Content</button>
+	<span class="status"></span>
+	<div id="output"></div>
+</body>
+</html>

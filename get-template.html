@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/mustache/mustache.min.js"></script>
+	<script>
+		var renderProductTable = function(data){
+		  	// 1. Get the template content
+		  	var template = $('#template').html();
+
+		  	// 2. Render the template
+		  	var result = Mustache.render(template,
+		  		{ 'products': data });
+
+		  	// 3. Put the resulting HTML back
+		  	$('#output tbody').html(result);
+		}
+
+		$(document).ready(function(){
+			$.getJSON('ajax/get_method.php', 
+				  { 'product-line': 'Motor' }, renderProductTable);
+		});
+	</script>
+</head>
+<body>
+	<table id="output">
+		<thead>
+			<th>Product code</th>
+			<th>Prodcut Name</th>
+			<th>Product Vendor</th>
+			<th>Quantity</th>
+			<th>Price</th>
+		</thead>
+		<tbody>
+			<!-- Data from server -->			
+		</tbody>
+	</table>
+	<script type="text/template" id="template">
+		{{#products}}
+		<tr>
+			<td>{{ productCode }}</td>
+			<td>{{ productName }}</td>
+			<td>{{ productVendor }}</td>
+			<td>{{ Quantity }}</td>
+			<td>{{ buyPrice }}</td>
+		</tr>
+		{{/products}}
+	</script>
+</body>
+</html>
