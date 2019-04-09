@@ -1,17 +1,19 @@
-<?php 
-	$productLine = $_POST['product-line'];
-	
-	// input validation
 
-	$sql  = "SELECT productCode, productName, productVendor, buyPrice, quantityInStock as Quantity ";
-	$sql .= "FROM products ";
-	$sql .= "WHERE productLine LIKE ?";
+	<?php 
+		$productLine = $_POST['product-line'];
+		
+		// input validation
 
-	$pdo = new PDO('mysql:dbname=classicmodels;host=localhost', 'root', '');
-	$statement = $pdo->prepare($sql);
-	$statement->execute(['%'.$productLine.'%']);
+		$sql  = "SELECT productCode, productName, productVendor, ";
+		$sql .= "buyPrice, quantityInStock as Quantity ";
+		$sql .= "FROM products ";
+		$sql .= "WHERE productLine LIKE ?";
 
-	$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+		$pdo = new PDO('mysql:dbname=classicmodels;host=localhost', 'root', '');
+		$statement = $pdo->prepare($sql);
+		$statement->execute(['%'.$productLine.'%']);
+
+		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 	// $statement->debugDumpParams();
 

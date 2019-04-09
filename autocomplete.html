@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="node_modules/jquery-ui-dist/jquery-ui.min.css" />
+	<link rel="stylesheet" href="node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
+	<script src="node_modules/jquery-ui-dist/external/jquery/jquery.js"></script>
+	<script src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#product').autocomplete({
+				source: 'ajax/products.php',
+				minLength: 3,
+				select: function(e, ui){
+					$(this).next().val(ui.item.productCode);
+				}
+			});
+
+			// Case 1
+			// $('#product').keypress(function(e){
+			// 	if(e.charCode == 13 && this.value == ''){
+			// 		$(this).next().val('');
+			// 	}
+			// });
+
+			// Case 2
+			$('#product').keydown(function(e){
+				if(e.keyCode == 8){
+					$(this).next().val('');
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="text" id="product">
+	<input type="text" name="productCode" />
+</body>
+</html>

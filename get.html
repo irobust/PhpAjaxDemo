@@ -12,8 +12,8 @@
 					  	$('#template .code').text(product.productCode);
 					  	$('#template .name').text(product.productName);
 					  	$('#template').clone(true).removeAttr('id')
-					  				//.data('id', product.productCode)
-					  				  .attr('data-id', product.productCode)
+					  				.data('id', product.productCode)
+					  				//.attr('data-id', product.productCode)
 					  				  .show().appendTo('#output tbody');
 					}
 				  }, 'json');
